@@ -640,12 +640,9 @@ public class Vender extends javax.swing.JPanel {
     }
     
     private void agregarProductoLista(){
-        Map<String, Object> where = new HashMap<>();
-        where.put("idProducto", codigoProductoTextField.getText());
-        Map<String, Object> datosProducto = dbManager.buscarUno(TABLA_PRODUCTO, where);
         
-        total += Integer.parseInt( datosProducto.get("precioNeto").toString() );
-        subtotal += Integer.parseInt( datosProducto.get("precioBruto").toString() );
+        total += Integer.parseInt( totalTextField.getText() ) ;
+        subtotal += Integer.parseInt( subtotalTextField.getText() );
         
         Map<String,Object> producto = new HashMap<>();
         producto.put("producto", codigoProductoTextField.getText());
