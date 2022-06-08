@@ -190,6 +190,7 @@ public class Vender extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         Text22 = new javax.swing.JLabel();
         noVentaTextField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(750, 430));
@@ -340,7 +341,7 @@ public class Vender extends javax.swing.JPanel {
         add(codigoProductoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 110, 30));
 
         Text11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Text11.setText("CÃ³digo");
+        Text11.setText("Código");
         add(Text11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
         Text12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -385,12 +386,13 @@ public class Vender extends javax.swing.JPanel {
         add(descripcionProductoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 170, 30));
 
         Text15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Text15.setText("DescripciÃ³n");
+        Text15.setText("Descripción");
         add(Text15, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, 150, -1));
 
         Text16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Text16.setText("CantidadXProducto");
-        add(Text16, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 210, 130, -1));
+        Text16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Text16.setText("Cantidad");
+        add(Text16, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 190, 100, -1));
 
         jSeparator13.setForeground(new java.awt.Color(0, 153, 255));
         jSeparator13.setPreferredSize(new java.awt.Dimension(200, 10));
@@ -529,6 +531,10 @@ public class Vender extends javax.swing.JPanel {
         noVentaTextField.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         noVentaTextField.setEnabled(false);
         add(noVentaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 40, 50, 30));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("XProducto");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(646, 210, 90, -1));
     }// </editor-fold>//GEN-END:initComponents
     
     private void datosEmpleado(){
@@ -796,6 +802,7 @@ public class Vender extends javax.swing.JPanel {
     private javax.swing.JPanel finVentaButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
