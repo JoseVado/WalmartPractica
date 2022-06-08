@@ -308,10 +308,10 @@ public class UpProductos extends javax.swing.JPanel {
             if (!disponibles.getText().matches("^\\d+$")) {
                 errores += "ERROR cantidad disponible invalida\n";
             }
-            if (!precio_bruto.getText().matches("^\\d+$")) {
-                errores += "ERROR precio bruto invalida\n";
+            if (!precio_bruto.getText().matches("\\d+\\.\\d+")) {
+                errores += "ERROR precio bruto invalido\n";
             }
-            if (!precio_neto.getText().matches("^\\d+$")) {
+            if (!precio_neto.getText().matches("\\d+\\.\\d+")) {
                 errores += "ERROR precio neto invalido\n";
             }
 

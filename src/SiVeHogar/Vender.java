@@ -5,7 +5,6 @@
  */
 package SiVeHogar;
 
-import static SiVeHogar.Dashboard.actualizarPantalla;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,8 +25,8 @@ public class Vender extends javax.swing.JPanel {
     private final String TABLA_CARRITO = "Carrito";
     private final String TABLA_VENTAS = "Venta";
     
-    private int total;
-    private int subtotal;
+    private double total;
+    private double subtotal;
     
     private String pattern = "dd-MM-yyyy";
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -569,8 +568,8 @@ public class Vender extends javax.swing.JPanel {
         String pago = pagoTextField.getText();
         String total = totalTextField.getText();
         if (pago.matches("^\\d+$") && total.matches("^\\d+$")) {
-            int cambio = Integer.parseInt(pago)
-                    - Integer.parseInt(total);
+            double cambio = Double.parseDouble(pago)
+                    - Double.parseDouble(total);
             cambioTextField.setText((cambio<0)?"Falta dinero":cambio + "");
         } else {
             cambioTextField.setText("");
@@ -622,18 +621,18 @@ public class Vender extends javax.swing.JPanel {
         totalTextField.setText(total + "");
 
         if (cantidad.matches("^\\d+$") && precio.matches("^\\d+$")) {
-            if (Integer.parseInt(cantidad) <= Integer.parseInt(datosProducto.get("disponibles").toString())) {
+            if (Integer.parseInt(cantidad) <= Double.parseDouble(datosProducto.get("disponibles").toString())) {
                 cantidadXproductoTextField.setText(
                         (Integer.parseInt(cantidad)
                         * Integer.parseInt(precio)) + "");
 
                 subtotalTextField.setText(
-                        (Integer.parseInt(subtotalTextField.getText())
+                        (Double.parseDouble(subtotalTextField.getText())
                         + Integer.parseInt(cantidadXproductoTextField.getText())) + "");
                 try {
                     int precioNeto = Integer.parseInt(datosProducto.get("precioNeto").toString());
                     totalTextField.setText(
-                            (Integer.parseInt(totalTextField.getText())
+                            (Double.parseDouble(totalTextField.getText())
                             + (Integer.parseInt(cantidad) * precioNeto)) + "");
                 } catch (Exception e) {}
             } else {
@@ -647,8 +646,8 @@ public class Vender extends javax.swing.JPanel {
     
     private void agregarProductoLista(){
         
-        total += Integer.parseInt( totalTextField.getText() ) ;
-        subtotal += Integer.parseInt( subtotalTextField.getText() );
+        total = Integer.parseInt( totalTextField.getText() ) ;
+        subtotal = Integer.parseInt( subtotalTextField.getText() );
         
         Map<String,Object> producto = new HashMap<>();
         producto.put("producto", codigoProductoTextField.getText());
@@ -714,7 +713,7 @@ public class Vender extends javax.swing.JPanel {
             return;
         }
         
-        if ( !pagoTextField.getText().matches("^\\d+$") ){
+        if ( !pagoTextField.getText().matches("\\d+\\.\\d+") ){
             javax.swing.JOptionPane.showConfirmDialog(this, "Ingrese un pago", "ERROR", javax.swing.JOptionPane.PLAIN_MESSAGE);
             return;
         }
@@ -727,7 +726,7 @@ public class Vender extends javax.swing.JPanel {
 
         Map<String, Object> venta = new HashMap<>();
         venta.put("total", total);
-        venta.put("cambio", Integer.parseInt(cambioTextField.getText()));
+        venta.put("cambio", Double.parseDouble(cambioTextField.getText()));
         venta.put("empleado", Integer.parseInt(nOPersonalEmpleadoTextField.getText()));
         venta.put("fecha", fechaTextField.getText());
         if (!nombreClienteTextField.getText().isEmpty()) {

@@ -455,23 +455,18 @@ public class Login extends javax.swing.JFrame {
                 login.setLocationRelativeTo(null);
                 login.requestFocus();
                 /*
-                DBManager dbManager = new DBManager();
+                DBManager dbManager = DBManager.getDBManager();
                 Map<String, Object> datos = new HashMap<>();
                 
                 datos.put("telefono","000000000000000" );
                 datos.put("fechaNacimiento", "00/00/0000");
                 datos.put("fechaIngreso", "00/00/0000");
-                datos.put("puesto","administrador");
+                datos.put("puesto","Administrador");
                 datos.put("usuario", "admin");
                 datos.put("contraseña", "admin");
                 
                 dbManager.insertar("Empleado", datos);
-                datos.put("nombre", "prueba");
-                datos.put("disponibles", 0);
-                datos.put("precioBruto", 0);
-                datos.put("precioNeto",0);
-                datos.put("descripcion", "prueba");
-                dbManager.insertar("Producto", datos);*/
+                */
             }
         });
     }
