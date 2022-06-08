@@ -340,7 +340,7 @@ public class Vender extends javax.swing.JPanel {
         add(codigoProductoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 110, 30));
 
         Text11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Text11.setText("Código");
+        Text11.setText("CÃ³digo");
         add(Text11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
         Text12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -385,7 +385,7 @@ public class Vender extends javax.swing.JPanel {
         add(descripcionProductoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 170, 30));
 
         Text15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Text15.setText("Descripción");
+        Text15.setText("DescripciÃ³n");
         add(Text15, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, 150, -1));
 
         Text16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -640,12 +640,9 @@ public class Vender extends javax.swing.JPanel {
     }
     
     private void agregarProductoLista(){
-        Map<String, Object> where = new HashMap<>();
-        where.put("idProducto", codigoProductoTextField.getText());
-        Map<String, Object> datosProducto = dbManager.buscarUno(TABLA_PRODUCTO, where);
         
-        total += Integer.parseInt( datosProducto.get("precioNeto").toString() );
-        subtotal += Integer.parseInt( datosProducto.get("precioBruto").toString() );
+        total += Integer.parseInt( totalTextField.getText() ) ;
+        subtotal += Integer.parseInt( subtotalTextField.getText() );
         
         Map<String,Object> producto = new HashMap<>();
         producto.put("producto", codigoProductoTextField.getText());
