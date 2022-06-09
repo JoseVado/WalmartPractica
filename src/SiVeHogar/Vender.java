@@ -6,6 +6,7 @@
 package SiVeHogar;
 
 import java.awt.Color;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +18,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public class Vender extends javax.swing.JPanel {
-
+    
+    private static final DecimalFormat df = new DecimalFormat("0.00");  
     DBManager dbManager = DBManager.getDBManager();
     private final String TABLA_PRODUCTO = "Producto";
     private final String TABLA_CLIENTE = "Cliente";
@@ -427,7 +429,7 @@ public class Vender extends javax.swing.JPanel {
 
         subtotalTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         subtotalTextField.setForeground(new java.awt.Color(102, 102, 102));
-        subtotalTextField.setText("0");
+        subtotalTextField.setText("0.0");
         subtotalTextField.setBorder(null);
         subtotalTextField.setEnabled(false);
         add(subtotalTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 270, 100, 30));
@@ -442,7 +444,7 @@ public class Vender extends javax.swing.JPanel {
 
         totalTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         totalTextField.setForeground(new java.awt.Color(102, 102, 102));
-        totalTextField.setText("0");
+        totalTextField.setText("0.0");
         totalTextField.setBorder(null);
         totalTextField.setEnabled(false);
         add(totalTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, 100, 30));
@@ -567,10 +569,10 @@ public class Vender extends javax.swing.JPanel {
     private void actualizarCambio() {
         String pago = pagoTextField.getText();
         String total = totalTextField.getText();
-        if (pago.matches("^\\d+$") && total.matches("^\\d+$")) {
+        if ((pago.matches("\\d+\\.\\d+") || pago.matches("^\\d+$") )&& (total.matches("\\d+\\.\\d+") || total.matches("^\\d+$"))) {
             double cambio = Double.parseDouble(pago)
                     - Double.parseDouble(total);
-            cambioTextField.setText((cambio<0)?"Falta dinero":cambio + "");
+            cambioTextField.setText((cambio<0)?"Falta dinero":df.format(cambio));
         } else {
             cambioTextField.setText("");
         }
@@ -620,20 +622,20 @@ public class Vender extends javax.swing.JPanel {
         subtotalTextField.setText(subtotal + "");
         totalTextField.setText(total + "");
 
-        if (cantidad.matches("^\\d+$") && precio.matches("^\\d+$")) {
-            if (Integer.parseInt(cantidad) <= Double.parseDouble(datosProducto.get("disponibles").toString())) {
-                cantidadXproductoTextField.setText(
-                        (Integer.parseInt(cantidad)
-                        * Integer.parseInt(precio)) + "");
+        if (cantidad.matches("^\\d+$") && precio.matches("\\d+\\.\\d+")) {
+            if (Integer.parseInt(cantidad) <= Integer.parseInt(datosProducto.get("disponibles").toString())) {
+                cantidadXproductoTextField.setText(df.format(
+                        Integer.parseInt(cantidad)
+                        * Double.parseDouble(precio)) );
 
-                subtotalTextField.setText(
-                        (Double.parseDouble(subtotalTextField.getText())
-                        + Integer.parseInt(cantidadXproductoTextField.getText())) + "");
+                subtotalTextField.setText(df.format(
+                        Double.parseDouble(subtotalTextField.getText())
+                        + Double.parseDouble(cantidadXproductoTextField.getText())) );
                 try {
-                    int precioNeto = Integer.parseInt(datosProducto.get("precioNeto").toString());
-                    totalTextField.setText(
-                            (Double.parseDouble(totalTextField.getText())
-                            + (Integer.parseInt(cantidad) * precioNeto)) + "");
+                    double precioNeto = Double.parseDouble(datosProducto.get("precioNeto").toString());
+                    totalTextField.setText(df.format(
+                            Double.parseDouble(totalTextField.getText())
+                            + (Double.parseDouble(cantidad) * precioNeto)) );
                 } catch (Exception e) {}
             } else {
                 cantidadXproductoTextField.setText("Insuficiente");
@@ -646,8 +648,8 @@ public class Vender extends javax.swing.JPanel {
     
     private void agregarProductoLista(){
         
-        total = Integer.parseInt( totalTextField.getText() ) ;
-        subtotal = Integer.parseInt( subtotalTextField.getText() );
+        total = Double.parseDouble( totalTextField.getText() ) ;
+        subtotal = Double.parseDouble( subtotalTextField.getText() );
         
         Map<String,Object> producto = new HashMap<>();
         producto.put("producto", codigoProductoTextField.getText());
@@ -713,7 +715,7 @@ public class Vender extends javax.swing.JPanel {
             return;
         }
         
-        if ( !pagoTextField.getText().matches("\\d+\\.\\d+") ){
+        if ( ! (pagoTextField.getText().matches("\\d+\\.\\d+")||pagoTextField.getText().matches("^\\d+$")) ){
             javax.swing.JOptionPane.showConfirmDialog(this, "Ingrese un pago", "ERROR", javax.swing.JOptionPane.PLAIN_MESSAGE);
             return;
         }
